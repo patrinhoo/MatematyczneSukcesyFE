@@ -1,0 +1,15 @@
+.App-courses-tab-nav .ant-tabs-nav {
+  margin-bottom: 0 !important;
+}
+
+.App-courses-header-card .ant-card-body {
+  padding-bottom: 0 !important;
+}
+
+.App-courses-filter-card .ant-input-search {
+  margin: 0 !important;
+}
+
+.App-courses-filter-card .ant-card-body {
+  padding-bottom: 0 !important;
+}

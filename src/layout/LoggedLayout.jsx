@@ -1,0 +1,64 @@
+import React, { useState } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { Layout } from 'antd';
+
+import { LoggedMenu } from './logged/LoggedMenu';
+import { LoggedHeader } from './logged/LoggedHeader';
+
+// Dashboard
+import { DashboardPage } from '../routes/dashboard/DashboardPage';
+
+// Account
+import { MyAccountPage } from '../routes/myAccount/MyAccountPage';
+
+// Courses
+import { CoursesListPage } from '../routes/courses/CoursesListPage';
+import { MyCoursesListPage } from '../routes/courses/MyCoursesListPage';
+
+// Homeworks
+import { HomeworksListPage } from '../routes/homeworks/HomeworksListPage';
+
+import { LoggedFooter } from './logged/LoggedFooter';
+
+const { Content } = Layout;
+
+export const LoggedLayout = () => {
+  const [collapsed, setCollapsed] = useState(false);
+
+  return (
+    <Layout style={{ minHeight: '100vh' }}>
+      <LoggedHeader collapsed={collapsed} />
+      <Layout>
+        <LoggedMenu collapsed={collapsed} setCollapsed={setCollapsed} />
+
+        <Layout>
+          <Content>
+            <Routes>
+              <Route path='/dashboard' element={<DashboardPage />} />
+
+              <Route path='/myAccount' element={<MyAccountPage />} />
+
+              <Route path='/courses' element={<CoursesListPage />} />
+              <Route path='/myCourses' element={<MyCoursesListPage />} />
+
+              <Route path='/homeworks' element={<HomeworksListPage />} />
+
+              <Route
+                exact
+                path='/'
+                element={<Navigate to={'/login'} replace />}
+              />
+              <Route
+                exact
+                path='*'
+                element={<Navigate to={'/404'} replace />}
+              />
+            </Routes>
+          </Content>
+
+          <LoggedFooter />
+        </Layout>
+      </Layout>
+    </Layout>
+  );
+};

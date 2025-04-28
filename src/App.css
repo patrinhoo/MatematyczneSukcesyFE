@@ -1,0 +1,21 @@
+.ant-card .ant-card-grid {
+  width: 33.33% !important;
+}
+
+@media only screen and (max-width: 1199px) {
+  .ant-card .ant-card-grid {
+    width: 50% !important;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .ant-form-item-label {
+    text-align: start !important;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .ant-card .ant-card-grid {
+    width: 100% !important;
+  }
+}
