@@ -7,17 +7,19 @@ import {
 } from '@ant-design/icons';
 import { Dropdown, message, Layout } from 'antd';
 import { LogoWName } from '../../common/icons/LogoWName';
+import { useUser } from '../../api/hooks/useUser';
 
 const { Header } = Layout;
 
 export const LoggedHeader = () => {
   const navigate = useNavigate();
+  const { logout } = useUser();
 
   const logoutHandler = useCallback(() => {
-    localStorage.removeItem('token');
+    logout();
     message.success('Wylogowano!');
     navigate('/login');
-  }, [navigate]);
+  }, [navigate, logout]);
 
   const items = useMemo(
     () => [
@@ -45,7 +47,7 @@ export const LoggedHeader = () => {
         <Link to={'/dashboard'}>
           <LogoWName height={48} width={210} textColor='#fff' />
         </Link>
-        <div className='tw-flex-1 tw-text-right tw-cursor-pointer tw-text-white hover:tw-text-gray-light tw-text-2xl tw-pt-1'>
+        <div className='tw-flex-1 tw-text-right tw-text-white hover:tw-text-gray-light tw-text-2xl tw-pt-1'>
           <div>
             <Dropdown
               menu={{

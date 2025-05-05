@@ -3,19 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { message } from 'antd';
 
-import { authService } from '../api/authService';
-
-export const getAuthHeaders = () => {
-  const token = authService.getToken();
-
-  if (!token) {
-    return {};
-  }
-
-  return {
-    headers: { Authorization: `Token ${token}` },
-  };
-};
+import { getAuthHeaders } from '../utils/getAuthHeaders';
 
 export const useApi = ({
   url,

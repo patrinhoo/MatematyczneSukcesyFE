@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import { LoggedLayout } from './layout/LoggedLayout';
 import { LoginPage } from './routes/auth/LoginPage';
-import { RegisterPage } from './routes/auth/RegisterPage';
 import { NotFound404Page } from './routes/NotFound404Page';
 
 import SettingsContextProvider from './store/Provider';
@@ -17,7 +16,6 @@ const App = () => {
         <Router>
           <Routes>
             <Route path='/login' element={<LoginPage />} />
-            <Route path='/register' element={<RegisterPage />} />
             <Route path='/404' element={<NotFound404Page />} />
             <Route path='*' element={<LoggedLayout />} />
           </Routes>

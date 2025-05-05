@@ -4,6 +4,7 @@ import { Layout } from 'antd';
 
 import { LoggedMenu } from './logged/LoggedMenu';
 import { LoggedHeader } from './logged/LoggedHeader';
+import { PrivateRoute } from '../common/components/PrivateRoute';
 
 // Dashboard
 import { DashboardPage } from '../routes/dashboard/DashboardPage';
@@ -34,25 +35,27 @@ export const LoggedLayout = () => {
         <Layout>
           <Content>
             <Routes>
-              <Route path='/dashboard' element={<DashboardPage />} />
+              <Route element={<PrivateRoute />}>
+                <Route path='/dashboard' element={<DashboardPage />} />
 
-              <Route path='/myAccount' element={<MyAccountPage />} />
+                <Route path='/myAccount' element={<MyAccountPage />} />
 
-              <Route path='/courses' element={<CoursesListPage />} />
-              <Route path='/myCourses' element={<MyCoursesListPage />} />
+                <Route path='/courses' element={<CoursesListPage />} />
+                <Route path='/myCourses' element={<MyCoursesListPage />} />
 
-              <Route path='/homeworks' element={<HomeworksListPage />} />
+                <Route path='/homeworks' element={<HomeworksListPage />} />
 
-              <Route
-                exact
-                path='/'
-                element={<Navigate to={'/login'} replace />}
-              />
-              <Route
-                exact
-                path='*'
-                element={<Navigate to={'/404'} replace />}
-              />
+                <Route
+                  exact
+                  path='/'
+                  element={<Navigate to={'/dashboard'} replace />}
+                />
+                <Route
+                  exact
+                  path='*'
+                  element={<Navigate to={'/404'} replace />}
+                />
+              </Route>
             </Routes>
           </Content>
 

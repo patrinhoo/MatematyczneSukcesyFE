@@ -6,6 +6,7 @@ import {
   AppstoreOutlined,
   BarsOutlined,
   AppstoreAddOutlined,
+  ReadOutlined,
   SignatureOutlined,
   AlertOutlined,
   SyncOutlined,
@@ -43,34 +44,46 @@ export const LoggedMenu = ({ collapsed, setCollapsed }) => {
             label: <Link to={'/dashboard'}>Strona główna</Link>,
           },
           {
-            key: '12',
+            key: '2',
             icon: <AppstoreOutlined />,
             label: 'Kursy',
             children: [
               {
-                key: '17',
+                key: '21',
                 label: <Link to={'/courses'}>Wszystkie</Link>,
                 icon: <BarsOutlined />,
               },
               {
-                key: '15',
+                key: '22',
                 label: <Link to={'/myCourses'}>Moje</Link>,
                 icon: <AppstoreAddOutlined />,
               },
             ],
           },
           {
-            key: '2',
+            key: '3',
+            icon: <ReadOutlined />,
+            label: 'Zadania',
+            children: [
+              {
+                key: '31',
+                label: <Link to={'/tasks'}>Wszystkie</Link>,
+                icon: <BarsOutlined />,
+              },
+            ],
+          },
+          {
+            key: '4',
             icon: <SignatureOutlined />,
             label: 'Zadania domowe',
             children: [
               {
-                key: '7',
+                key: '41',
                 label: <Link to={'/homeworks?status=TO_DO'}>Do zrobienia</Link>,
                 icon: <AlertOutlined />,
               },
               {
-                key: '6',
+                key: '42',
                 label: (
                   <Link to={'/homeworks?status=WAITING'}>
                     Oczekujące na ocenę
@@ -79,7 +92,7 @@ export const LoggedMenu = ({ collapsed, setCollapsed }) => {
                 icon: <SyncOutlined />,
               },
               {
-                key: '5',
+                key: '43',
                 label: <Link to={'/homeworks?status=GRADED'}>Ocenione</Link>,
                 icon: <CheckCircleOutlined />,
               },
