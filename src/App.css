@@ -2,6 +2,15 @@
   width: 33.33% !important;
 }
 
+.upload-profile-image {
+  display: flex !important;
+}
+
+.upload-profile-image .ant-upload {
+  width: 204px !important;
+  height: 204px !important;
+}
+
 @media only screen and (max-width: 1199px) {
   .ant-card .ant-card-grid {
     width: 50% !important;

@@ -1,20 +1,19 @@
-import { useState, useEffect, useCallback } from 'react';
+import { createContext, useState, useCallback, useEffect } from 'react';
+import { userService } from '../../api/services/userService';
+import { authService } from '../../api/services/authService';
+import { removeTokens } from '../../api/utils/tokens';
 
-import { removeTokens } from '../utils/tokens';
-import { userService } from '../services/userService';
-import { authService } from '../services/authService';
+export const UserContext = createContext();
 
-export const useUser = () => {
+export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const tryRefreshToken = async () => {
     try {
       await authService.refreshToken();
-
-      // Refetch user
       await fetchUser();
-    } catch (err) {
+    } catch {
       logout();
     }
   };
@@ -44,5 +43,11 @@ export const useUser = () => {
     // eslint-disable-next-line
   }, []);
 
-  return { user, loading, logout };
+  return (
+    <UserContext.Provider
+      value={{ user, setUser, loading, logout, refresh: fetchUser }}
+    >
+      {children}
+    </UserContext.Provider>
+  );
 };

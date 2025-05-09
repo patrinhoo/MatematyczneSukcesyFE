@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, Row, Col } from 'antd';
 
 import { Logo } from '../../../common/icons/Logo';
-import { useUser } from '../../../api/hooks/useUser';
+import { useUser } from '../../../contexts/user/useUser';
 
 export const HeaderBox = () => {
   const { user } = useUser();

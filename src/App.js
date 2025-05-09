@@ -5,14 +5,14 @@ import { LoggedLayout } from './layout/LoggedLayout';
 import { LoginPage } from './routes/auth/LoginPage';
 import { NotFound404Page } from './routes/NotFound404Page';
 
-import SettingsContextProvider from './store/Provider';
+import { UserProvider } from './contexts/user/UserContext';
 
 import './App.css';
 
 const App = () => {
   return (
     <div className='App tw-bg-gray-light'>
-      <SettingsContextProvider>
+      <UserProvider>
         <Router>
           <Routes>
             <Route path='/login' element={<LoginPage />} />
@@ -20,7 +20,7 @@ const App = () => {
             <Route path='*' element={<LoggedLayout />} />
           </Routes>
         </Router>
-      </SettingsContextProvider>
+      </UserProvider>
     </div>
   );
 };

@@ -7,7 +7,7 @@ import {
 } from '@ant-design/icons';
 import { Dropdown, message, Layout } from 'antd';
 import { LogoWName } from '../../common/icons/LogoWName';
-import { useUser } from '../../api/hooks/useUser';
+import { useUser } from '../../contexts/user/useUser';
 
 const { Header } = Layout;
 

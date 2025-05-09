@@ -5,13 +5,27 @@ export const userService = {};
 
 userService.getUserData = async () => {
   const { headers } = getAuthHeaders();
-  const url = '/api/auth/me';
+  const url = '/api/auth/me/';
 
   try {
-    const response = await axios({
-      url,
-      headers,
-    });
+    const response = await axios(url, { headers });
+
+    if (response?.status !== 200) {
+      throw response;
+    }
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+userService.updateUserData = async (data) => {
+  const { headers } = getAuthHeaders();
+  const url = '/api/auth/me/';
+
+  try {
+    const response = await axios.patch(url, data, { headers });
 
     if (response?.status !== 200) {
       throw response;

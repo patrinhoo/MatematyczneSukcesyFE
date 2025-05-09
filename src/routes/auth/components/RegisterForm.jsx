@@ -4,6 +4,7 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons';
 
 import { authService } from '../../../api/services/authService';
 import { userRolesMap } from '../../../utils/userRoles';
+import { userGenderMap } from '../../../utils/userGender';
 
 export const RegisterForm = ({ setIsLoading, setActiveKey }) => {
   const registerHandler = useCallback(
@@ -104,6 +105,22 @@ export const RegisterForm = ({ setIsLoading, setActiveKey }) => {
           prefix={<UserOutlined />}
           placeholder='Rola'
           options={Object.values(userRolesMap)}
+          className='tw-text-left'
+        />
+      </Form.Item>
+      <Form.Item
+        name='gender'
+        rules={[
+          {
+            required: true,
+            message: 'Proszę podać płeć!',
+          },
+        ]}
+      >
+        <Select
+          prefix={<UserOutlined />}
+          placeholder='Płeć'
+          options={Object.values(userGenderMap)}
           className='tw-text-left'
         />
       </Form.Item>

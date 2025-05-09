@@ -2,7 +2,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 
-import { useUser } from '../../api/hooks/useUser';
+import { useUser } from '../../contexts/user/useUser';
 
 export const PrivateRoute = () => {
   const { user, loading } = useUser();

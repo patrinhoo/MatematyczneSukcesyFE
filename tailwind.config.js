@@ -25,6 +25,10 @@ module.exports = {
       red: {
         medium: '#ff0000',
       },
+      green: {
+        light: '#87FFC5',
+        medium: '#32FF70',
+      },
       gold: {
         medium: '#FFD700',
       },

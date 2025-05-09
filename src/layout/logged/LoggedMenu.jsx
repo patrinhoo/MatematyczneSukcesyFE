@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Layout, Menu } from 'antd';
+import { Image, Layout, Menu } from 'antd';
 import {
   DashboardOutlined,
   AppstoreOutlined,
@@ -12,13 +12,16 @@ import {
   SyncOutlined,
   CheckCircleOutlined,
 } from '@ant-design/icons';
-import { User } from '../../common/icons/User';
+import { useUser } from '../../contexts/user/useUser';
+import classNames from 'classnames';
 
 const { Sider } = Layout;
 
 const MENU_COLLAPSED_WIDTH = 50;
 
 export const LoggedMenu = ({ collapsed, setCollapsed }) => {
+  const { user } = useUser();
+
   return (
     <Sider
       breakpoint='md'
@@ -30,7 +33,16 @@ export const LoggedMenu = ({ collapsed, setCollapsed }) => {
     >
       <div className='tw-py-8 tw-mx-auto tw-w-fit'>
         <Link to={'/myAccount'}>
-          <User height={collapsed ? 40 : 80} width={collapsed ? 40 : 80} />
+          <Image
+            src={user?.avatar}
+            preview={false}
+            height={collapsed ? 40 : 120}
+            width={collapsed ? 40 : 120}
+            className={classNames(
+              'tw-border-green-light tw-border-solid tw-rounded-full',
+              { 'tw-border-2': collapsed, 'tw-border-4': !collapsed }
+            )}
+          />
         </Link>
       </div>
       <Menu
