@@ -4,9 +4,11 @@ import { Form, Input, Button, Checkbox, message, Row, Col } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 
 import { authService } from '../../../api/services/authService';
+import { useUser } from '../../../contexts/user/useUser';
 
 export const LoginForm = ({ setIsLoading }) => {
   const navigate = useNavigate();
+  const { refresh } = useUser();
 
   const loginHandler = useCallback(
     async (values) => {
@@ -17,6 +19,7 @@ export const LoginForm = ({ setIsLoading }) => {
           { email: values.email, password: values.password },
           values.remember
         );
+        await refresh();
 
         message.success('Zalogowano!');
         navigate('/dashboard');
