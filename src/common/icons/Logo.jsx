@@ -25,14 +25,14 @@ export const Logo = ({ width = 72, height = 72, ...props }) => (
     <path
       d='M16 45L31 33'
       stroke='white'
-      stroke-width='3'
-      stroke-linecap='round'
+      strokeWidth='3'
+      strokeLinecap='round'
     />
     <path
       d='M31 33L42 39'
       stroke='white'
-      stroke-width='3'
-      stroke-linecap='round'
+      strokeWidth='3'
+      strokeLinecap='round'
     />
     <path
       d='M40.8978 37.9826C40.3359 38.5913 40.3738 39.5403 40.9826 40.1022C41.5913 40.6641 42.5403 40.6262 43.1022 40.0174L40.8978 37.9826ZM42 39L43.1022 40.0174L55.1022 27.0174L54 26L52.8978 24.9826L40.8978 37.9826L42 39Z'
@@ -53,20 +53,20 @@ export const Logo = ({ width = 72, height = 72, ...props }) => (
     <path
       d='M36 15.2L28.5 18.8'
       stroke='white'
-      stroke-width='0.8'
-      stroke-linecap='round'
+      strokeWidth='0.8'
+      strokeLinecap='round'
     />
     <path
       d='M28.5 18.8L36 22.4'
       stroke='white'
-      stroke-width='0.8'
-      stroke-linecap='round'
+      strokeWidth='0.8'
+      strokeLinecap='round'
     />
     <path
       d='M36 22.3999L42.4286 18.7999'
       stroke='white'
-      stroke-width='0.8'
-      stroke-linecap='round'
+      strokeWidth='0.8'
+      strokeLinecap='round'
     />
     <path
       d='M25.25 16.3999C25.25 16.1238 25.0261 15.8999 24.75 15.8999C24.4739 15.8999 24.25 16.1238 24.25 16.3999H25.25ZM24.75 16.3999H24.25V22.3999H24.75H25.25V16.3999H24.75Z'
@@ -85,9 +85,9 @@ export const Logo = ({ width = 72, height = 72, ...props }) => (
         width='72'
         height='72'
         filterUnits='userSpaceOnUse'
-        color-interpolation-filters='sRGB'
+        colorInterpolationFilters='sRGB'
       >
-        <feFlood flood-opacity='0' result='BackgroundImageFix' />
+        <feFlood floodOpacity='0' result='BackgroundImageFix' />
         <feColorMatrix
           in='SourceAlpha'
           type='matrix'
@@ -121,8 +121,8 @@ export const Logo = ({ width = 72, height = 72, ...props }) => (
         y2='64'
         gradientUnits='userSpaceOnUse'
       >
-        <stop stop-color='#32FF70' />
-        <stop offset='1' stop-color='#25B766' />
+        <stop stopColor='#32FF70' />
+        <stop offset='1' stopColor='#25B766' />
       </linearGradient>
     </defs>
   </svg>
