@@ -16,6 +16,9 @@ import { MyAccountPage } from '../routes/myAccount/MyAccountPage';
 import { CoursesListPage } from '../routes/courses/CoursesListPage';
 import { MyCoursesListPage } from '../routes/courses/MyCoursesListPage';
 
+// Tasks
+import { TasksListPage } from '../routes/tasks/TasksListPage';
+
 // Homeworks
 import { HomeworksListPage } from '../routes/homeworks/HomeworksListPage';
 
@@ -42,6 +45,8 @@ export const LoggedLayout = () => {
 
                 <Route path='/courses' element={<CoursesListPage />} />
                 <Route path='/myCourses' element={<MyCoursesListPage />} />
+
+                <Route path='/tasks' element={<TasksListPage />} />
 
                 <Route path='/homeworks' element={<HomeworksListPage />} />
 

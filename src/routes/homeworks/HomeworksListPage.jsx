@@ -1,8 +1,7 @@
-import React, { useState, useCallback, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import {
-  Spin,
   Card,
   Row,
   Col,
@@ -16,7 +15,6 @@ import {
 } from 'antd';
 
 import './css/homeworks.css';
-import 'antd/dist/reset.css';
 
 const { TabPane } = Tabs;
 const { Title } = Typography;
@@ -118,83 +116,6 @@ export const HomeworksListPage = () => {
       <Row className='tw-p-8' gutter={[20, 20]}>
         <Col xs={24}>
           <Card className='App-homeworks-filter-card tw-text-left'>
-            {/* <Row gutter={[16, 16]} style={{ marginBottom: 16 }}>
-              <Col xs={24}>
-                <Search
-                  placeholder='Wyszukaj kurs'
-                  enterButton
-                  onSearch={(value) => setSearchValue(value)}
-                  style={{ maxWidth: 400, margin: '20px 0' }}
-                />
-              </Col>
-              <Col xs={24}>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-                  {categories.map((cat, idx) => (
-                    <Tag key={idx}>{cat}</Tag>
-                  ))}
-                </div>
-              </Col>
-              <Col xs={24} sm={12} md={8} lg={6} xl={4} className='tw-mt-4'>
-                <Select
-                  placeholder={
-                    <>
-                      <UserOutlined className='tw-mr-2' /> Autor
-                    </>
-                  }
-                  size='small'
-                  style={{ width: '100%' }}
-                  allowClear
-                >
-                  <Option value={'id1'}>
-                    <UserOutlined className='tw-mr-2' />
-                    Patryk Rybacki
-                  </Option>
-                  <Option value={'id2'}>
-                    <UserOutlined className='tw-mr-2' />
-                    Andrzej Nowak
-                  </Option>
-                  <Option value={'id3'}>
-                    <UserOutlined className='tw-mr-2' />
-                    Piotr Kowalski
-                  </Option>
-                </Select>
-              </Col>
-              <Col xs={24} sm={12} md={8} lg={6} xl={4} className='tw-mt-4'>
-                <Select
-                  placeholder='Ocena'
-                  size='small'
-                  style={{ width: '100%' }}
-                  allowClear
-                >
-                  <Option value={1}>
-                    <StarFilled className='tw-text-gold-medium' />
-                  </Option>
-                  <Option value={2}>
-                    <StarFilled className='tw-text-gold-medium' />
-                    <StarFilled className='tw-text-gold-medium' />
-                  </Option>
-                  <Option value={3}>
-                    <StarFilled className='tw-text-gold-medium' />
-                    <StarFilled className='tw-text-gold-medium' />
-                    <StarFilled className='tw-text-gold-medium' />
-                  </Option>
-                  <Option value={4}>
-                    <StarFilled className='tw-text-gold-medium' />
-                    <StarFilled className='tw-text-gold-medium' />
-                    <StarFilled className='tw-text-gold-medium' />
-                    <StarFilled className='tw-text-gold-medium' />
-                  </Option>
-                  <Option value={5}>
-                    <StarFilled className='tw-text-gold-medium' />
-                    <StarFilled className='tw-text-gold-medium' />
-                    <StarFilled className='tw-text-gold-medium' />
-                    <StarFilled className='tw-text-gold-medium' />
-                    <StarFilled className='tw-text-gold-medium' />
-                  </Option>
-                </Select>
-              </Col>
-            </Row> */}
-
             <Form
               // form={form}
               layout='vertical'

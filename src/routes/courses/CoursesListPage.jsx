@@ -16,7 +16,6 @@ import {
 import { StarFilled, UserOutlined } from '@ant-design/icons';
 
 import './css/courses.css';
-import 'antd/dist/reset.css';
 
 const { TabPane } = Tabs;
 const { Search } = Input;
