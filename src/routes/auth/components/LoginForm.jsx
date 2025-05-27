@@ -30,7 +30,7 @@ export const LoginForm = ({ setIsLoading }) => {
         setIsLoading(false);
       }
     },
-    [navigate, setIsLoading]
+    [refresh, navigate, setIsLoading]
   );
 
   return (

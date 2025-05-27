@@ -91,13 +91,13 @@ export const LoggedMenu = ({ collapsed, setCollapsed }) => {
             children: [
               {
                 key: '41',
-                label: <Link to={'/homeworks?status=TO_DO'}>Do zrobienia</Link>,
+                label: <Link to={'/homeworks?status=READY'}>Do zrobienia</Link>,
                 icon: <AlertOutlined />,
               },
               {
                 key: '42',
                 label: (
-                  <Link to={'/homeworks?status=WAITING'}>
+                  <Link to={'/homeworks?status=SUBMITTED'}>
                     Oczekujące na ocenę
                   </Link>
                 ),
@@ -105,7 +105,7 @@ export const LoggedMenu = ({ collapsed, setCollapsed }) => {
               },
               {
                 key: '43',
-                label: <Link to={'/homeworks?status=GRADED'}>Ocenione</Link>,
+                label: <Link to={'/homeworks?status=CHECKED'}>Ocenione</Link>,
                 icon: <CheckCircleOutlined />,
               },
             ],

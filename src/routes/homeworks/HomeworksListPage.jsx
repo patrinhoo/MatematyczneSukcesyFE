@@ -1,98 +1,89 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import {
   Card,
   Row,
   Col,
-  List,
-  Avatar,
   Tabs,
   Typography,
   DatePicker,
   Form,
   Button,
+  message,
+  Spin,
+  Empty,
+  Pagination,
 } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
+import dayjs from 'dayjs';
+
+import { HomeworksListItem } from './components/HomeworksListItem';
+import { homeworksService } from '../../api/services/homeworksService';
 
 import './css/homeworks.css';
 
 const { TabPane } = Tabs;
 const { Title } = Typography;
 
-const mockData = [
-  {
-    title: 'Alipay',
-    desc: 'Nibh fringilla ut morbi amet, fusce amet nulla ut tristique.',
-    time: 'Just now',
-    image:
-      'https://storage.googleapis.com/grow-with-goog-publish-prod-media/images/Marketing.original.format-jpeg.jpg',
-  },
-  {
-    title: 'Angular',
-    desc: 'Eleifend ultricies nam mauris non facilisis.',
-    time: '2 hrs ago',
-    image:
-      'https://storage.googleapis.com/grow-with-goog-publish-prod-media/images/Marketing.original.format-jpeg.jpg',
-  },
-  {
-    title: 'Ant Design',
-    desc: 'Etiam condimentum leo arcu posuere vitae, quis.',
-    time: '4 hrs ago',
-    image:
-      'https://storage.googleapis.com/grow-with-goog-publish-prod-media/images/Marketing.original.format-jpeg.jpg',
-  },
-  {
-    title: 'Ant Design Pro',
-    desc: 'Ac nulla hendrerit diam, scelerisque fusce lacus sed.',
-    time: '6 hrs ago',
-    image:
-      'https://storage.googleapis.com/grow-with-goog-publish-prod-media/images/Marketing.original.format-jpeg.jpg',
-  },
-  {
-    title: 'React',
-    desc: 'Etiam condimentum leo arcu posuere vitae, quis.',
-    time: '10 hrs ago',
-    image:
-      'https://storage.googleapis.com/grow-with-goog-publish-prod-media/images/Marketing.original.format-jpeg.jpg',
-  },
-  {
-    title: 'React',
-    desc: 'Etiam condimentum leo arcu posuere vitae, quis.',
-    time: '10 hrs ago',
-    image:
-      'https://storage.googleapis.com/grow-with-goog-publish-prod-media/images/Marketing.original.format-jpeg.jpg',
-  },
-  {
-    title: 'React',
-    desc: 'Etiam condimentum leo arcu posuere vitae, quis.',
-    time: '10 hrs ago',
-    image:
-      'https://storage.googleapis.com/grow-with-goog-publish-prod-media/images/Marketing.original.format-jpeg.jpg',
-  },
-  {
-    title: 'React',
-    desc: 'Etiam condimentum leo arcu posuere vitae, quis.',
-    time: '10 hrs ago',
-    image:
-      'https://storage.googleapis.com/grow-with-goog-publish-prod-media/images/Marketing.original.format-jpeg.jpg',
-  },
-];
-
 export const HomeworksListPage = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const queryStatus = searchParams.get('status');
-
-  const [searchValue, setSearchValue] = useState('');
   const [activeTab, setActiveTab] = useState();
+  const [homeworks, setHomeworks] = useState([]);
+  const [loadingHomeworks, setLoadingHomeworks] = useState(true);
+  const [pagination, setPagination] = useState({});
+  const [params, setParams] = useState({ page: 1, page_size: 10 });
 
   useEffect(() => {
     if (queryStatus) {
       setActiveTab(queryStatus);
+      setParams((curr) => ({ ...curr, status: queryStatus }));
     } else {
-      setActiveTab('TO_DO');
+      setActiveTab('READY');
     }
   }, [queryStatus]);
+
+  useEffect(() => {
+    const fetchHomeworks = async () => {
+      try {
+        setLoadingHomeworks(true);
+        const data = await homeworksService.getList(params);
+        const { results: tasks, current_page: page, ...pagination } = data;
+        setHomeworks(tasks);
+        setPagination({ ...pagination, page });
+      } catch (err) {
+        console.error(err);
+        message.error('Podczas pobierania zadań domowych wystąpił błąd!');
+      } finally {
+        setLoadingHomeworks(false);
+      }
+    };
+
+    fetchHomeworks();
+  }, [params]);
+
+  const onFinish = useCallback(
+    (values) => {
+      const formattedValues = Object.fromEntries(
+        Object.entries({
+          ...params,
+          ...values,
+        })
+          .filter(([_, v]) => v)
+          .map(([key, value]) => {
+            if (dayjs.isDayjs(value)) {
+              return [key, value.toISOString()];
+            }
+            return [key, value];
+          })
+      );
+
+      setParams(formattedValues);
+    },
+    [params, setParams]
+  );
 
   return (
     <div className='tw-p-4'>
@@ -107,20 +98,16 @@ export const HomeworksListPage = () => {
           onChange={(key) => navigate(`/homeworks?status=${key}`)}
           className='App-homeworks-tab-nav'
         >
-          <TabPane tab='Do zrobienia' key='TO_DO' />
-          <TabPane tab='Oczekujące na ocenę' key='WAITING' />
-          <TabPane tab='Ocenione' key='GRADED' />
+          <TabPane tab='Do zrobienia' key='READY' />
+          <TabPane tab='Oczekujące na ocenę' key='SUBMITTED' />
+          <TabPane tab='Ocenione' key='CHECKED' />
         </Tabs>
       </Card>
 
       <Row className='tw-p-8' gutter={[20, 20]}>
         <Col xs={24}>
           <Card className='App-homeworks-filter-card tw-text-left'>
-            <Form
-              // form={form}
-              layout='vertical'
-              // onFinish={onFinish}
-            >
+            <Form layout='vertical' onFinish={onFinish}>
               <Row gutter={[20, 10]}>
                 <Col xs={24} lg={12} xl={8}>
                   <Row>
@@ -131,9 +118,9 @@ export const HomeworksListPage = () => {
                       Utworzono:
                     </Col>
                     <Col xs={11}>
-                      <Form.Item name='createdFrom'>
+                      <Form.Item name='created_from'>
                         <DatePicker
-                          placeholder='Oceniono od'
+                          placeholder='Utworzono od'
                           style={{ width: '100%' }}
                         />
                       </Form.Item>
@@ -142,9 +129,9 @@ export const HomeworksListPage = () => {
                       -
                     </Col>
                     <Col xs={11}>
-                      <Form.Item name='createdTo'>
+                      <Form.Item name='created_to'>
                         <DatePicker
-                          placeholder='Oceniono do'
+                          placeholder='Utworzono do'
                           style={{ width: '100%' }}
                         />
                       </Form.Item>
@@ -152,7 +139,7 @@ export const HomeworksListPage = () => {
                   </Row>
                 </Col>
 
-                {['WAITING', 'GRADED'].includes(activeTab) && (
+                {['SUBMITTED', 'CHECKED'].includes(activeTab) && (
                   <Col xs={24} lg={12} xl={8}>
                     <Row>
                       <Col
@@ -162,7 +149,7 @@ export const HomeworksListPage = () => {
                         Oddano do sprawdzenia:
                       </Col>
                       <Col xs={11}>
-                        <Form.Item name='submittedFrom'>
+                        <Form.Item name='submitted_from'>
                           <DatePicker
                             placeholder='Oddano od'
                             style={{ width: '100%' }}
@@ -173,10 +160,11 @@ export const HomeworksListPage = () => {
                         -
                       </Col>
                       <Col xs={11}>
-                        <Form.Item name='submittedTo'>
+                        <Form.Item name='submitted_to'>
                           <DatePicker
                             placeholder='Oddano do'
                             style={{ width: '100%' }}
+                            showTime
                           />
                         </Form.Item>
                       </Col>
@@ -184,7 +172,7 @@ export const HomeworksListPage = () => {
                   </Col>
                 )}
 
-                {activeTab === 'GRADED' && (
+                {activeTab === 'CHECKED' && (
                   <Col xs={24} lg={12} xl={8}>
                     <Row>
                       <Col
@@ -194,7 +182,7 @@ export const HomeworksListPage = () => {
                         Oceniono:
                       </Col>
                       <Col xs={11}>
-                        <Form.Item name='gradedFrom'>
+                        <Form.Item name='checked_from'>
                           <DatePicker
                             placeholder='Oceniono od'
                             style={{ width: '100%' }}
@@ -205,7 +193,7 @@ export const HomeworksListPage = () => {
                         -
                       </Col>
                       <Col xs={11}>
-                        <Form.Item name='gradedTo'>
+                        <Form.Item name='checked_to'>
                           <DatePicker
                             placeholder='Oceniono do'
                             style={{ width: '100%' }}
@@ -230,37 +218,49 @@ export const HomeworksListPage = () => {
           </Card>
         </Col>
 
-        <Col xs={24}>
-          <List
-            grid={{ gutter: 16, xs: 1, sm: 2, md: 2, lg: 3, xl: 4, column: 5 }}
-            dataSource={mockData.filter((item) =>
-              item.title.toLowerCase().includes(searchValue.toLowerCase())
-            )}
-            renderItem={(item) => (
-              <List.Item>
-                <Card
-                  hoverable
-                  cover={<img alt={item.title} src={item.image} />}
-                >
-                  <Card.Meta
-                    title={item.title}
-                    description={
-                      <div>
-                        <p>{item.desc}</p>
-                        <p style={{ color: '#888' }}>{item.time}</p>
-                        <Avatar.Group>
-                          <Avatar src='https://i.pravatar.cc/40?img=1' />
-                          <Avatar src='https://i.pravatar.cc/40?img=2' />
-                          <Avatar src='https://i.pravatar.cc/40?img=3' />
-                        </Avatar.Group>
-                      </div>
+        {loadingHomeworks ? (
+          <div className='tw-text-center tw-pt-32'>
+            <Spin indicator={<LoadingOutlined spin />} size='large' />
+          </div>
+        ) : (
+          <Col xs={24}>
+            {homeworks.length > 0 ? (
+              <>
+                {homeworks.map((homework) => (
+                  <HomeworksListItem homework={homework} />
+                ))}
+                <div className='tw-mt-4'>
+                  <Pagination
+                    total={pagination.count}
+                    current={pagination.page}
+                    pageSize={pagination.page_size}
+                    showSizeChanger={{
+                      options: [
+                        { label: '5', value: 5 },
+                        { label: '10', value: 10 },
+                        { label: '25', value: 25 },
+                      ],
+                      showSearch: false,
+                    }}
+                    align={'end'}
+                    onChange={(page, pageSize) =>
+                      setParams((curr) => {
+                        console.log(curr);
+                        return {
+                          ...curr,
+                          page,
+                          page_size: pageSize,
+                        };
+                      })
                     }
                   />
-                </Card>
-              </List.Item>
+                </div>
+              </>
+            ) : (
+              <Empty description={'Brak zadań domowych'} className='tw-mt-12' />
             )}
-          />
-        </Col>
+          </Col>
+        )}
       </Row>
     </div>
   );
