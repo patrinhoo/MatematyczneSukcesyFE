@@ -8,6 +8,7 @@ import { NotFound404Page } from './routes/NotFound404Page';
 import { UserProvider } from './contexts/user/UserContext';
 
 import 'antd/dist/reset.css';
+import 'katex/dist/katex.min.css';
 import './App.css';
 
 const App = () => {
