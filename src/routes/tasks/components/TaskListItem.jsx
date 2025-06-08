@@ -89,13 +89,20 @@ export const TaskListItem = ({ task }) => {
 
       <Divider className='tw-mb-6 tw-mt-0' />
 
-      {[...task.blocks]
-        .sort((a, b) => a.order - b.order)
-        .map((block) => (
-          <div key={block.order} className='tw-mb-4'>
-            {renderBlock(block)}
-          </div>
-        ))}
+      <div className='tw-mb-4'>
+        {[...task.blocks]
+          .sort((a, b) => a.order - b.order)
+          .map((block) => (
+            <div
+              key={block.order}
+              className={classNames({
+                'tw-inline-block tw-mr-2': block.inline,
+              })}
+            >
+              {renderBlock(block)}
+            </div>
+          ))}
+      </div>
 
       {task.type === taskTypesMap.CLOSED.value
         ? renderClosedAnswers(task.closed_answers)
