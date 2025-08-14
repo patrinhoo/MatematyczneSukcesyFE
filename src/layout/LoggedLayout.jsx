@@ -20,6 +20,7 @@ import { MyCoursesListPage } from '../routes/courses/MyCoursesListPage';
 import { TasksListPage } from '../routes/tasks/TasksListPage';
 
 // Homeworks
+import { HomeworkPage } from '../routes/homeworks/HomeworkPage';
 import { HomeworksListPage } from '../routes/homeworks/HomeworksListPage';
 
 import { LoggedFooter } from './logged/LoggedFooter';
@@ -48,6 +49,10 @@ export const LoggedLayout = () => {
 
                 <Route path='/tasks' element={<TasksListPage />} />
 
+                <Route
+                  path='/homeworks/:homeworkId'
+                  element={<HomeworkPage />}
+                />
                 <Route path='/homeworks' element={<HomeworksListPage />} />
 
                 <Route

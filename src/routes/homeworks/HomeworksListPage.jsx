@@ -41,7 +41,8 @@ export const HomeworksListPage = () => {
       setActiveTab(queryStatus);
       setParams((curr) => ({ ...curr, status: queryStatus }));
     } else {
-      setActiveTab('READY');
+      setActiveTab(undefined);
+      setParams((curr) => ({ ...curr, status: undefined }));
     }
   }, [queryStatus]);
 
@@ -95,9 +96,12 @@ export const HomeworksListPage = () => {
 
         <Tabs
           activeKey={activeTab}
-          onChange={(key) => navigate(`/homeworks?status=${key}`)}
+          onChange={(key) =>
+            key ? navigate(`/homeworks?status=${key}`) : navigate(`/homeworks`)
+          }
           className='App-homeworks-tab-nav'
         >
+          <TabPane tab='Wszystkie' key='' />
           <TabPane tab='Do zrobienia' key='READY' />
           <TabPane tab='Oczekujące na ocenę' key='SUBMITTED' />
           <TabPane tab='Ocenione' key='CHECKED' />

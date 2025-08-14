@@ -23,7 +23,7 @@ export const HeaderBox = () => {
                 Witaj {user?.given_name ?? ''}, miłej nauki!
               </div>
               <div className='tw-flex-1 tw-text-md tw-text-gray-dark'>
-                Czy wiesz, że regularne nauka jest efektywniejsza o 50%?
+                Czy wiesz, że regularna nauka jest efektywniejsza o 50%?
               </div>
             </Col>
             <Col xs={4} className='tw-text-center'>

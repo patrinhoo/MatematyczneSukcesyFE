@@ -19,3 +19,20 @@ homeworksService.getList = async (params = {}) => {
     throw error;
   }
 };
+
+homeworksService.getOne = async (homeworkId) => {
+  const { headers } = getAuthHeaders();
+  const url = `/api/homeworks/${homeworkId}`;
+
+  try {
+    const response = await axios(url, { headers });
+
+    if (response?.status !== 200) {
+      throw response;
+    }
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
